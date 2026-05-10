@@ -1,0 +1,38 @@
+﻿# Environment variables
+.env
+.env.*
+!.env.example
+
+# Python cache / build
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project outputs (generated)
+output/
+cache/
+
+# Optional: generated graph exports outside output/
+*.graphml
