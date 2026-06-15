@@ -34,7 +34,7 @@ Thumbs.db
 output/
 cache/
 Results/
-
+data/
 # Website runtime logs
 route_comparison_web/*.log
 road_pmtiles_web/*.log
