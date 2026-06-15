@@ -33,6 +33,15 @@ Thumbs.db
 # Project outputs (generated)
 output/
 cache/
+Results/
+
+# Website runtime logs
+route_comparison_web/*.log
+road_pmtiles_web/*.log
+
+# Heavy scenario intermediate GeoJSON files can be regenerated.
+scenarios/*/*.geojson
+Taipei_City_Urban_Resilience_Map_Website/scenarios/*/*.geojson
 
 # Optional: generated graph exports outside output/
 *.graphml

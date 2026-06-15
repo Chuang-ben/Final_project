@@ -1,0 +1,241 @@
+START 2024-07-10 07:00:00 2026-06-14T22:07:12.4605762+08:00
+Scenario: 20240710_0700
+Target time: 2024-07-10 07:00:00
+Rain file: C:\Users\Ben\Documents\NTU\RSGI\final_project\data\rain_20240710.csv
+rain_past1hr stations: 67 range: 0.0 ~ 0.5
+rain_past24hr stations: 67 range: 0.0 ~ 57.5
+rain_past2days stations: 67 range: 0.0 ~ 57.5
+rain_past3days stations: 67 range: 4.0 ~ 87.5
+Past 1hr kriging: 0.00 ~ 0.48 mm
+Past 24hr kriging: 0.00 ~ 57.17 mm
+Past 2days kriging: 0.00 ~ 57.17 mm
+Past 3days kriging: 4.30 ~ 87.21 mm
+Saving scenario files...
+Preparing PMTiles road data...
+Reading Taipei boundary...
+Computing PMTiles stats...
+Building PMTiles...
+zoom 10: 4 candidate tiles
+zoom 11: 9 candidate tiles
+zoom 12: 16 candidate tiles
+zoom 13: 42 candidate tiles
+zoom 14: 143 candidate tiles
+zoom 15: 480 candidate tiles
+wrote C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240710_0700\roads.pmtiles
+tiles: 372, encoded feature instances: 617209
+Done.
+Scenario folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\scenarios\20240710_0700
+PMTiles folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240710_0700
+
+DONE 2024-07-10 07:00:00 2026-06-14T22:15:30.7573948+08:00
+START 2024-07-10 09:00:00 2026-06-14T22:15:30.7600993+08:00
+Scenario: 20240710_0900
+Target time: 2024-07-10 09:00:00
+Rain file: C:\Users\Ben\Documents\NTU\RSGI\final_project\data\rain_20240710.csv
+rain_past1hr stations: 67 range: 0.0 ~ 0.0
+rain_past24hr stations: 67 range: 0.0 ~ 57.5
+rain_past2days stations: 67 range: 0.0 ~ 57.5
+rain_past3days stations: 67 range: 4.0 ~ 87.5
+Past 1hr kriging: 0.00 ~ 0.00 mm
+Past 24hr kriging: 0.00 ~ 57.17 mm
+Past 2days kriging: 0.00 ~ 57.17 mm
+Past 3days kriging: 4.30 ~ 87.21 mm
+Saving scenario files...
+Preparing PMTiles road data...
+Reading Taipei boundary...
+Computing PMTiles stats...
+Building PMTiles...
+zoom 10: 4 candidate tiles
+zoom 11: 9 candidate tiles
+zoom 12: 16 candidate tiles
+zoom 13: 42 candidate tiles
+zoom 14: 143 candidate tiles
+zoom 15: 480 candidate tiles
+wrote C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240710_0900\roads.pmtiles
+tiles: 372, encoded feature instances: 617209
+Done.
+Scenario folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\scenarios\20240710_0900
+PMTiles folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240710_0900
+
+DONE 2024-07-10 09:00:00 2026-06-14T22:22:46.1135846+08:00
+START 2024-07-10 13:00:00 2026-06-14T22:22:46.1156097+08:00
+Scenario: 20240710_1300
+Target time: 2024-07-10 13:00:00
+Rain file: C:\Users\Ben\Documents\NTU\RSGI\final_project\data\rain_20240710.csv
+rain_past1hr stations: 67 range: 0.0 ~ 4.5
+rain_past24hr stations: 67 range: 0.0 ~ 57.5
+rain_past2days stations: 67 range: 0.0 ~ 57.5
+rain_past3days stations: 67 range: 4.0 ~ 87.5
+Past 1hr kriging: 0.00 ~ 4.37 mm
+Past 24hr kriging: 0.00 ~ 57.17 mm
+Past 2days kriging: 0.00 ~ 57.17 mm
+Past 3days kriging: 4.30 ~ 87.21 mm
+Saving scenario files...
+Preparing PMTiles road data...
+Reading Taipei boundary...
+Computing PMTiles stats...
+Building PMTiles...
+zoom 10: 4 candidate tiles
+zoom 11: 9 candidate tiles
+zoom 12: 16 candidate tiles
+zoom 13: 42 candidate tiles
+zoom 14: 143 candidate tiles
+zoom 15: 480 candidate tiles
+wrote C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240710_1300\roads.pmtiles
+tiles: 372, encoded feature instances: 617209
+Done.
+Scenario folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\scenarios\20240710_1300
+PMTiles folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240710_1300
+
+DONE 2024-07-10 13:00:00 2026-06-14T22:28:08.0175022+08:00
+START 2024-07-10 14:00:00 2026-06-14T22:28:08.0175022+08:00
+Scenario: 20240710_1400
+Target time: 2024-07-10 14:00:00
+Rain file: C:\Users\Ben\Documents\NTU\RSGI\final_project\data\rain_20240710.csv
+rain_past1hr stations: 67 range: 0.0 ~ 83.0
+rain_past24hr stations: 67 range: 0.0 ~ 83.0
+rain_past2days stations: 67 range: 0.0 ~ 83.0
+rain_past3days stations: 67 range: 4.0 ~ 143.5
+Past 1hr kriging: 0.00 ~ 81.52 mm
+Past 24hr kriging: 0.00 ~ 81.62 mm
+Past 2days kriging: 0.00 ~ 81.62 mm
+Past 3days kriging: 4.36 ~ 141.58 mm
+Saving scenario files...
+Preparing PMTiles road data...
+Reading Taipei boundary...
+Computing PMTiles stats...
+Building PMTiles...
+zoom 10: 4 candidate tiles
+zoom 11: 9 candidate tiles
+zoom 12: 16 candidate tiles
+zoom 13: 42 candidate tiles
+zoom 14: 143 candidate tiles
+zoom 15: 480 candidate tiles
+wrote C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240710_1400\roads.pmtiles
+tiles: 372, encoded feature instances: 617209
+Done.
+Scenario folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\scenarios\20240710_1400
+PMTiles folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240710_1400
+
+DONE 2024-07-10 14:00:00 2026-06-14T22:34:38.1296477+08:00
+START 2024-07-10 15:00:00 2026-06-14T22:34:38.1306485+08:00
+Scenario: 20240710_1500
+Target time: 2024-07-10 15:00:00
+Rain file: C:\Users\Ben\Documents\NTU\RSGI\final_project\data\rain_20240710.csv
+rain_past1hr stations: 67 range: 0.0 ~ 52.0
+rain_past24hr stations: 67 range: 3.5 ~ 122.5
+rain_past2days stations: 67 range: 4.0 ~ 122.5
+rain_past3days stations: 67 range: 15.5 ~ 189.0
+Past 1hr kriging: 2.44 ~ 52.31 mm
+Past 24hr kriging: 6.24 ~ 121.99 mm
+Past 2days kriging: 6.24 ~ 122.00 mm
+Past 3days kriging: 15.79 ~ 187.96 mm
+Saving scenario files...
+Preparing PMTiles road data...
+Reading Taipei boundary...
+Computing PMTiles stats...
+Building PMTiles...
+zoom 10: 4 candidate tiles
+zoom 11: 9 candidate tiles
+zoom 12: 16 candidate tiles
+zoom 13: 42 candidate tiles
+zoom 14: 143 candidate tiles
+zoom 15: 480 candidate tiles
+wrote C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240710_1500\roads.pmtiles
+tiles: 372, encoded feature instances: 617209
+Done.
+Scenario folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\scenarios\20240710_1500
+PMTiles folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240710_1500
+
+DONE 2024-07-10 15:00:00 2026-06-14T22:42:16.5084262+08:00
+START 2024-07-24 20:00:00 2026-06-14T22:42:16.5104330+08:00
+Scenario: 20240724_2000
+Target time: 2024-07-24 20:00:00
+Rain file: C:\Users\Ben\Documents\NTU\RSGI\final_project\data\rain_20240724.csv
+rain_past1hr stations: 65 range: 0.0 ~ 12.5
+rain_past24hr stations: 65 range: 47.0 ~ 303.0
+rain_past2days stations: 65 range: 48.5 ~ 316.0
+rain_past3days stations: 65 range: -99.0 ~ 316.0
+Past 1hr kriging: 0.00 ~ 12.45 mm
+Past 24hr kriging: 48.61 ~ 302.51 mm
+Past 2days kriging: 49.87 ~ 315.40 mm
+Past 3days kriging: 0.00 ~ 315.40 mm
+Saving scenario files...
+Preparing PMTiles road data...
+Reading Taipei boundary...
+Computing PMTiles stats...
+Building PMTiles...
+zoom 10: 4 candidate tiles
+zoom 11: 9 candidate tiles
+zoom 12: 16 candidate tiles
+zoom 13: 42 candidate tiles
+zoom 14: 143 candidate tiles
+zoom 15: 480 candidate tiles
+wrote C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240724_2000\roads.pmtiles
+tiles: 372, encoded feature instances: 617209
+Done.
+Scenario folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\scenarios\20240724_2000
+PMTiles folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240724_2000
+
+DONE 2024-07-24 20:00:00 2026-06-14T22:49:34.8930067+08:00
+START 2024-07-25 06:00:00 2026-06-14T22:49:34.8939849+08:00
+Scenario: 20240725_0600
+Target time: 2024-07-25 06:00:00
+Rain file: C:\Users\Ben\Documents\NTU\RSGI\final_project\data\rain_20240725.csv
+rain_past1hr stations: 66 range: 0.0 ~ 2.0
+rain_past24hr stations: 66 range: 40.0 ~ 259.0
+rain_past2days stations: 66 range: 50.0 ~ 318.0
+rain_past3days stations: 66 range: 52.0 ~ 341.0
+Past 1hr kriging: 0.00 ~ 1.95 mm
+Past 24hr kriging: 42.45 ~ 259.15 mm
+Past 2days kriging: 51.02 ~ 317.59 mm
+Past 3days kriging: 53.02 ~ 340.43 mm
+Saving scenario files...
+Preparing PMTiles road data...
+Reading Taipei boundary...
+Computing PMTiles stats...
+Building PMTiles...
+zoom 10: 4 candidate tiles
+zoom 11: 9 candidate tiles
+zoom 12: 16 candidate tiles
+zoom 13: 42 candidate tiles
+zoom 14: 143 candidate tiles
+zoom 15: 480 candidate tiles
+wrote C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240725_0600\roads.pmtiles
+tiles: 372, encoded feature instances: 617209
+Done.
+Scenario folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\scenarios\20240725_0600
+PMTiles folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240725_0600
+
+DONE 2024-07-25 06:00:00 2026-06-14T22:54:12.2901792+08:00
+START 2024-07-25 09:00:00 2026-06-14T22:54:12.2911788+08:00
+Scenario: 20240725_0900
+Target time: 2024-07-25 09:00:00
+Rain file: C:\Users\Ben\Documents\NTU\RSGI\final_project\data\rain_20240725.csv
+rain_past1hr stations: 66 range: 0.0 ~ 4.5
+rain_past24hr stations: 66 range: 43.5 ~ 243.0
+rain_past2days stations: 66 range: 55.5 ~ 328.0
+rain_past3days stations: 66 range: 57.5 ~ 351.0
+Past 1hr kriging: 0.12 ~ 4.50 mm
+Past 24hr kriging: 45.66 ~ 242.93 mm
+Past 2days kriging: 55.73 ~ 327.59 mm
+Past 3days kriging: 57.73 ~ 350.43 mm
+Saving scenario files...
+Preparing PMTiles road data...
+Reading Taipei boundary...
+Computing PMTiles stats...
+Building PMTiles...
+zoom 10: 4 candidate tiles
+zoom 11: 9 candidate tiles
+zoom 12: 16 candidate tiles
+zoom 13: 42 candidate tiles
+zoom 14: 143 candidate tiles
+zoom 15: 480 candidate tiles
+wrote C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240725_0900\roads.pmtiles
+tiles: 372, encoded feature instances: 617209
+Done.
+Scenario folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\scenarios\20240725_0900
+PMTiles folder: C:\Users\Ben\Documents\NTU\RSGI\final_project\road_pmtiles_web\data\scenarios\20240725_0900
+
+DONE 2024-07-25 09:00:00 2026-06-14T23:01:10.8803702+08:00
+ALL_DONE 2026-06-14T23:01:10.8812800+08:00

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Taipei Road Travel Time Map</title>
+  <link href="https://unpkg.com/maplibre-gl@5.0.0/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    html, body, #map {
+      height: 100%;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .panel {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 340px;
+      max-width: calc(100vw - 24px);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid #d6d6d6;
+      border-radius: 8px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+      padding: 14px;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+    .subtitle {
+      color: #555;
+      font-size: 13px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .stat {
+      background: #f5f7fa;
+      border: 1px solid #e2e6ea;
+      border-radius: 6px;
+      padding: 8px;
+    }
+    .stat .label {
+      color: #666;
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+    .stat .value {
+      color: #111;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .layers {
+      display: grid;
+      gap: 7px;
+      font-size: 14px;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .swatch {
+      width: 28px;
+      height: 4px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+    .pre { background: #3182bd; }
+    .post { background: #e34a33; }
+    .closed { background: #111; height: 6px; }
+    .legend {
+      position: absolute;
+      right: 12px;
+      bottom: 28px;
+      width: 260px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid #d6d6d6;
+      border-radius: 8px;
+      padding: 10px 12px;
+      z-index: 1;
+      font-size: 12px;
+    }
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      margin: 7px 0;
+      background: linear-gradient(to right, #ffffb2, #fecc5c, #fd8d3c, #f03b20, #bd0026);
+    }
+    .popup {
+      font: 12px/1.45 system-ui, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <aside class="panel">
+    <h1>臺北市道路災後旅行時間</h1>
+    <div class="subtitle">比較降雨事件前的正常道路路網，以及降雨事件後的道路旅行時間與封閉路段。</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="label">平均旅行時間增加率</div>
+        <div class="value" id="avgIncrease">-</div>
+      </div>
+      <div class="stat">
+        <div class="label">受影響道路比例</div>
+        <div class="value" id="affectedRatio">-</div>
+      </div>
+      <div class="stat">
+        <div class="label">可達性下降幅度</div>
+        <div class="value" id="accessDrop">-</div>
+      </div>
+      <div class="stat">
+        <div class="label">封閉路段數</div>
+        <div class="value" id="closedCount">-</div>
+      </div>
+    </div>
+    <div class="layers">
+      <label><input type="checkbox" id="togglePre" checked><span class="swatch pre"></span> 災前正常路網旅行時間</label>
+      <label><input type="checkbox" id="togglePost" checked><span class="swatch post"></span> 災後道路旅行時間</label>
+      <label><input type="checkbox" id="toggleClosed" checked><span class="swatch closed"></span> 封閉路段</label>
+    </div>
+  </aside>
+  <aside class="legend">
+    <strong>旅行時間顏色</strong>
+    <div class="bar"></div>
+    <div style="display:flex;justify-content:space-between;">
+      <span>短</span><span>長</span>
+    </div>
+  </aside>
+
+  <script src="https://unpkg.com/maplibre-gl@5.0.0/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/pmtiles@4.3.0/dist/pmtiles.js"></script>
+  <script>
+    const center = [121.55331424, 25.08292052];
+    const bounds = [[121.45714882, 24.96050019], [121.66594254, 25.21017263]];
+
+    const protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
+
+    const map = new maplibregl.Map({
+      container: "map",
+      center,
+      zoom: 11.4,
+      maxZoom: 18,
+      style: {
+        version: 8,
+        sources: {
+          osm: {
+            type: "raster",
+            tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+            tileSize: 256,
+            attribution: "© OpenStreetMap contributors"
+          },
+          roads: {
+            type: "vector",
+            url: "pmtiles://data/roads.pmtiles"
+          },
+          boundary: {
+            type: "geojson",
+            data: "data/taipei_boundary.geojson"
+          }
+        },
+        layers: [
+          {
+            id: "osm",
+            type: "raster",
+            source: "osm",
+            paint: { "raster-opacity": 0.72 }
+          },
+          {
+            id: "taipei-boundary-fill",
+            type: "fill",
+            source: "boundary",
+            paint: { "fill-color": "#ffffff", "fill-opacity": 0.04 }
+          },
+          {
+            id: "taipei-boundary-line",
+            type: "line",
+            source: "boundary",
+            paint: { "line-color": "#111111", "line-width": 2 }
+          },
+          {
+            id: "pre-roads",
+            type: "line",
+            source: "roads",
+            "source-layer": "roads",
+            filter: [">=", ["get", "closed"], 0],
+            paint: {
+              "line-color": [
+                "interpolate", ["linear"], ["coalesce", ["get", "pre_m"], 0],
+                0, "#eff3ff",
+                0.10, "#bdd7e7",
+                0.25, "#6baed6",
+                0.50, "#3182bd",
+                1.00, "#08519c"
+              ],
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.6, 14, 1.4, 17, 3],
+              "line-opacity": 0.72
+            }
+          },
+          {
+            id: "post-roads",
+            type: "line",
+            source: "roads",
+            "source-layer": "roads",
+            filter: ["==", ["get", "closed"], 0],
+            paint: {
+              "line-color": [
+                "interpolate", ["linear"], ["coalesce", ["get", "post_m"], 0],
+                0, "#ffffb2",
+                0.10, "#fecc5c",
+                0.25, "#fd8d3c",
+                0.50, "#f03b20",
+                1.00, "#bd0026"
+              ],
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.8, 14, 1.8, 17, 3.4],
+              "line-opacity": 0.82
+            }
+          },
+          {
+            id: "closed-roads",
+            type: "line",
+            source: "roads",
+            "source-layer": "roads",
+            filter: ["==", ["get", "closed"], 1],
+            paint: {
+              "line-color": "#111111",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1.2, 14, 2.8, 17, 5],
+              "line-opacity": 0.95
+            }
+          }
+        ]
+      }
+    });
+
+    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }));
+    map.fitBounds(bounds, { padding: 40, duration: 0 });
+
+    function setLayerVisible(id, visible) {
+      map.setLayoutProperty(id, "visibility", visible ? "visible" : "none");
+    }
+
+    document.getElementById("togglePre").addEventListener("change", (event) => {
+      setLayerVisible("pre-roads", event.target.checked);
+    });
+    document.getElementById("togglePost").addEventListener("change", (event) => {
+      setLayerVisible("post-roads", event.target.checked);
+    });
+    document.getElementById("toggleClosed").addEventListener("change", (event) => {
+      setLayerVisible("closed-roads", event.target.checked);
+    });
+
+    function pct(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) return "N/A";
+      return `${value.toFixed(1)}%`;
+    }
+
+    fetch("data/stats.json")
+      .then((response) => response.json())
+      .then((stats) => {
+        document.getElementById("avgIncrease").textContent = pct(stats.average_travel_time_increase_rate_pct);
+        document.getElementById("affectedRatio").textContent = pct(stats.affected_road_ratio_pct_by_length);
+        document.getElementById("accessDrop").textContent = pct(stats.accessibility_decline_pct);
+        document.getElementById("closedCount").textContent = stats.closed_segments.toLocaleString();
+      });
+
+    const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false });
+
+    map.on("mousemove", (event) => {
+      const features = map.queryRenderedFeatures(event.point, {
+        layers: ["closed-roads", "post-roads", "pre-roads"]
+      });
+
+      if (!features.length) {
+        popup.remove();
+        map.getCanvas().style.cursor = "";
+        return;
+      }
+
+      const p = features[0].properties;
+      map.getCanvas().style.cursor = "pointer";
+      popup
+        .setLngLat(event.lngLat)
+        .setHTML(`
+          <div class="popup">
+            <strong>${p.id}</strong><br>
+            Road type: ${p.rt}<br>
+            Pre: ${Number(p.pre_m ?? 0).toFixed(3)} min<br>
+            Post: ${p.closed ? "Closed" : Number(p.post_m ?? 0).toFixed(3) + " min"}<br>
+            Increase: ${p.inc_pct == null ? "N/A" : Number(p.inc_pct).toFixed(1) + "%"}<br>
+            Flood depth: ${Number(p.flood_mm ?? 0).toFixed(0)} mm
+          </div>
+        `)
+        .addTo(map);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+::1 - - [13/Jun/2026 19:20:34] "GET / HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:20:49] "GET /index.html HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:20:59] "GET /data/stats.json HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:21:08] "HEAD /data/roads.pmtiles HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:21:46] "GET / HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:21:47] "GET /data/stats.json HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:21:47] "GET /data/roads.pmtiles HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('::ffff:127.0.0.1', 12196, 0, 0)
+::ffff:127.0.0.1 - - [13/Jun/2026 19:21:47] "GET /data/taipei_boundary.geojson HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:21:47] code 404, message File not found
+::ffff:127.0.0.1 - - [13/Jun/2026 19:21:47] "GET /favicon.ico HTTP/1.1" 404 -
+Traceback (most recent call last):
+  File "C:\Users\Ben\anaconda3\Lib\socketserver.py", line 692, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Ben\anaconda3\Lib\http\server.py", line 1311, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\Ben\anaconda3\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Ben\anaconda3\Lib\socketserver.py", line 761, in __init__
+    self.handle()
+  File "C:\Users\Ben\anaconda3\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Ben\anaconda3\Lib\http\server.py", line 424, in handle_one_request
+    method()
+  File "C:\Users\Ben\anaconda3\Lib\http\server.py", line 679, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\Ben\anaconda3\Lib\http\server.py", line 878, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\Ben\anaconda3\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\Ben\anaconda3\Lib\socketserver.py", line 840, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] 遠端主機已強制關閉一個現存的連線。
+----------------------------------------
+::ffff:127.0.0.1 - - [13/Jun/2026 19:24:00] "GET / HTTP/1.1" 304 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:24:00] "GET /data/stats.json HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:24:00] "GET /data/roads.pmtiles HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:24:00] "GET /data/taipei_boundary.geojson HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [13/Jun/2026 19:24:11] "HEAD /data/roads.pmtiles HTTP/1.1" 200 -

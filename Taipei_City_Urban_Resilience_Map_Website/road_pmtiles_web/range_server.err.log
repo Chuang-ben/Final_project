@@ -1,0 +1,37 @@
+127.0.0.1 - - [13/Jun/2026 19:24:47] code 416, message Requested Range Not Satisfiable
+127.0.0.1 - - [13/Jun/2026 19:24:47] "HEAD /data/roads.pmtiles HTTP/1.1" 416 -
+127.0.0.1 - - [13/Jun/2026 19:25:04] code 416, message Requested Range Not Satisfiable
+127.0.0.1 - - [13/Jun/2026 19:25:04] "GET /data/roads.pmtiles HTTP/1.1" 416 -
+127.0.0.1 - - [13/Jun/2026 19:28:01] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 19:28:01] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:34:38] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 19:34:39] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:34:39] "GET /data/stats.json HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 19:34:39] code 404, message File not found
+127.0.0.1 - - [13/Jun/2026 19:34:39] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [13/Jun/2026 19:34:39] "GET /data/taipei_boundary.geojson HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 19:34:39] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:34:39] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:34:39] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:34:39] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:34:39] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:19] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:19] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:19] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:19] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:19] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:19] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:19] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:19] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:20] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:20] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:20] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:20] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:20] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:20] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:20] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:20] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:20] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:20] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:34] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:35:35] "GET /data/roads.pmtiles HTTP/1.1" 206 -

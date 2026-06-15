@@ -1,0 +1,237 @@
+127.0.0.1 - - [13/Jun/2026 19:58:08] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 19:58:09] "GET /api/route?origin_lon=121.574264&origin_lat=25.166960&dest_lon=121.565000&dest_lat=25.120000 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 19:58:09] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=5 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 19:59:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 19:59:28] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:28] "GET /data/taipei_boundary.geojson HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 19:59:29] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:29] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:29] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:29] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:29] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:29] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:29] code 404, message File not found
+127.0.0.1 - - [13/Jun/2026 19:59:29] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [13/Jun/2026 19:59:31] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:31] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:31] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:31] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:31] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:47] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=5 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 19:59:54] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:54] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:55] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:55] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:55] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:55] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:55] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:55] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:55] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:55] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:55] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:55] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 19:59:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:38] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=6 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:00:40] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [13/Jun/2026 20:00:40] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:40] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:40] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:40] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:40] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:40] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:40] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:44] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=6 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:00:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:00:51] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=3 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:01:02] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=60 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:01:02] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=60 HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 13317)
+Traceback (most recent call last):
+  File "C:\Users\Ben\Documents\NTU\RSGI\final_project\scripts\serve_route_comparison_web.py", line 1274, in handle_accessibility_api
+    self.wfile.write(body)
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionAbortedError: [WinError 10053] \ufffd\ufffd\ufffdç·\ufffdå·²è¢«\ufffd\ufffd¨ä¸»æ©\ufffdä¸\ufffd\ufffd\ufffd\ufffdè»\ufffdé«\ufffdä¸­æ­¢\ufffd\ufffd\ufffd
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Ben\Documents\NTU\RSGI\final_project\scripts\serve_route_comparison_web.py", line 1194, in __init__
+    super().__init__(*args, directory=str(WEB_DIR), **kwargs)
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\http\server.py", line 424, in handle_one_request
+    method()
+  File "C:\Users\Ben\Documents\NTU\RSGI\final_project\scripts\serve_route_comparison_web.py", line 1219, in do_GET
+    self.handle_accessibility_api(parsed)
+  File "C:\Users\Ben\Documents\NTU\RSGI\final_project\scripts\serve_route_comparison_web.py", line 1283, in handle_accessibility_api
+    self.end_headers()
+  File "C:\Users\Ben\Documents\NTU\RSGI\final_project\scripts\serve_route_comparison_web.py", line 1199, in end_headers
+    super().end_headers()
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\http\server.py", line 538, in end_headers
+    self.flush_headers()
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\http\server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionAbortedError: [WinError 10053] \ufffd\ufffd\ufffdç·\ufffdå·²è¢«\ufffd\ufffd¨ä¸»æ©\ufffdä¸\ufffd\ufffd\ufffd\ufffdè»\ufffdé«\ufffdä¸­æ­¢\ufffd\ufffd\ufffd
+----------------------------------------
+127.0.0.1 - - [13/Jun/2026 20:01:17] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=60 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:01:17] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=60 HTTP/1.1" 500 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 1130)
+Traceback (most recent call last):
+  File "C:\Users\Ben\Documents\NTU\RSGI\final_project\scripts\serve_route_comparison_web.py", line 1274, in handle_accessibility_api
+    self.wfile.write(body)
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionAbortedError: [WinError 10053] \ufffd\ufffd\ufffdç·\ufffdå·²è¢«\ufffd\ufffd¨ä¸»æ©\ufffdä¸\ufffd\ufffd\ufffd\ufffdè»\ufffdé«\ufffdä¸­æ­¢\ufffd\ufffd\ufffd
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\Ben\Documents\NTU\RSGI\final_project\scripts\serve_route_comparison_web.py", line 1194, in __init__
+    super().__init__(*args, directory=str(WEB_DIR), **kwargs)
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\http\server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\http\server.py", line 424, in handle_one_request
+    method()
+  File "C:\Users\Ben\Documents\NTU\RSGI\final_project\scripts\serve_route_comparison_web.py", line 1219, in do_GET
+    self.handle_accessibility_api(parsed)
+  File "C:\Users\Ben\Documents\NTU\RSGI\final_project\scripts\serve_route_comparison_web.py", line 1283, in handle_accessibility_api
+    self.end_headers()
+  File "C:\Users\Ben\Documents\NTU\RSGI\final_project\scripts\serve_route_comparison_web.py", line 1199, in end_headers
+    super().end_headers()
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\http\server.py", line 538, in end_headers
+    self.flush_headers()
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\http\server.py", line 542, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "C:\Users\Ben\anaconda3\envs\RSGI\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionAbortedError: [WinError 10053] \ufffd\ufffd\ufffdç·\ufffdå·²è¢«\ufffd\ufffd¨ä¸»æ©\ufffdä¸\ufffd\ufffd\ufffd\ufffdè»\ufffdé«\ufffdä¸­æ­¢\ufffd\ufffd\ufffd
+----------------------------------------
+127.0.0.1 - - [13/Jun/2026 20:05:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:05:30] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:05:30] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:30] "GET /data/taipei_boundary.geojson HTTP/1.1" 304 -
+127.0.0.1 - - [13/Jun/2026 20:05:30] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:30] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:30] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:30] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:30] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:30] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:30] "GET /data/stats.json HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:05:33] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:33] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /api/route?origin_lon=121.574264&origin_lat=25.166960&dest_lon=121.565000&dest_lat=25.120000 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:54] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=5 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:05:58] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:06:01] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:06:01] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:06:02] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:06:02] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:06:03] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:06:03] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:06:03] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:06:03] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:08:56] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:12:38] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:12:38] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:38] code 404, message File not found
+127.0.0.1 - - [13/Jun/2026 20:12:38] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [13/Jun/2026 20:12:38] "GET /data/taipei_boundary.geojson HTTP/1.1" 304 -
+127.0.0.1 - - [13/Jun/2026 20:12:38] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:38] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:38] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:38] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:38] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:38] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:39] "GET /data/stats.json HTTP/1.1" 304 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /api/route?origin_lon=121.574264&origin_lat=25.166960&dest_lon=121.565000&dest_lat=25.120000 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:43] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:44] "GET /api/accessibility?origin_lon=121.574264&origin_lat=25.166960&cutoff_min=5 HTTP/1.1" 200 -
+127.0.0.1 - - [13/Jun/2026 20:12:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:46] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:54] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:54] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:54] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:12:54] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:13:13] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:13:13] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:13:13] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:13:13] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:13:13] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:13:13] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:13:13] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:13:13] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+127.0.0.1 - - [13/Jun/2026 20:13:14] "GET /data/roads.pmtiles HTTP/1.1" 206 -
+
+ERROR conda.cli.main_run:execute(125): `conda run python scripts\serve_route_comparison_web.py --port 8770` failed. (See above for error)

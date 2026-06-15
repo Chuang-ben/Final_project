@@ -1,0 +1,1381 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Taipei Pre/Post Route Comparison</title>
+  <link href="https://unpkg.com/maplibre-gl@5.0.0/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    html, body, #map {
+      height: 100%;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .panel {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 370px;
+      max-width: calc(100vw - 24px);
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #d7d7d7;
+      border-radius: 8px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+      padding: 14px;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 18px;
+      margin: 0 0 8px;
+    }
+    .hint {
+      color: #555;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .full-row {
+      grid-column: 1 / -1;
+    }
+    label {
+      color: #555;
+      font-size: 12px;
+      display: grid;
+      gap: 3px;
+    }
+    input,
+    select {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #cfcfcf;
+      border-radius: 6px;
+      padding: 7px 8px;
+      font-size: 13px;
+    }
+    .scenario-note {
+      color: #555;
+      font-size: 12px;
+      line-height: 1.4;
+      margin: -2px 0 10px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    button {
+      border: 1px solid #b9c2cc;
+      background: #f7f9fb;
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button.primary {
+      background: #1463ff;
+      border-color: #1463ff;
+      color: white;
+    }
+    button.active {
+      background: #fff3cd;
+      border-color: #d39e00;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .stat {
+      background: #f4f6f8;
+      border: 1px solid #e2e6ea;
+      border-radius: 6px;
+      padding: 8px;
+    }
+    .stat .label {
+      color: #666;
+      font-size: 12px;
+    }
+    .stat .value {
+      font-size: 18px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .layers-panel {
+      margin-top: 10px;
+      display: grid;
+      gap: 8px;
+      font-size: 13px;
+      border-top: 1px solid #e3e6ea;
+      padding-top: 10px;
+    }
+    .layer-group-title {
+      color: #555;
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .layer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 10px;
+    }
+    .layer-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #333;
+      font-size: 13px;
+      line-height: 1.25;
+      min-width: 0;
+    }
+    .layer-item input {
+      width: auto;
+      flex: 0 0 auto;
+      margin: 0;
+    }
+    .layer-item span:last-child {
+      min-width: 0;
+    }
+    .swatch {
+      display: inline-block;
+      width: 30px;
+      height: 5px;
+      border-radius: 999px;
+      vertical-align: middle;
+      flex: 0 0 30px;
+    }
+    .pre { background: #2166ac; }
+    .post { background: #d73027; }
+    .closed { background: #111; }
+    .iso-pre { background: rgba(33, 102, 172, 0.45); border: 1px solid #2166ac; }
+    .iso-post { background: rgba(215, 48, 39, 0.45); border: 1px solid #d73027; }
+    .shelter { background: #1a9850; height: 10px; width: 10px; border-radius: 50%; }
+    .flood-grid { background: rgba(43, 140, 190, 0.55); border: 1px solid #08589e; height: 12px; }
+    .landslide-grid { background: rgba(123, 50, 148, 0.55); border: 1px solid #542788; height: 12px; }
+    .status {
+      min-height: 18px;
+      color: #555;
+      font-size: 13px;
+      margin-top: 7px;
+    }
+    .section-title {
+      font-size: 14px;
+      font-weight: 800;
+      margin-top: 12px;
+      margin-bottom: 6px;
+    }
+    .nearest-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: #333;
+      font-size: 12px;
+      line-height: 1.45;
+      max-height: 116px;
+      overflow: auto;
+    }
+    .popup {
+      font: 12px/1.45 system-ui, sans-serif;
+    }
+    .map-legend {
+      position: absolute;
+      right: 14px;
+      bottom: 28px;
+      width: 260px;
+      max-width: calc(100vw - 28px);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid #d7d7d7;
+      border-radius: 8px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+      padding: 12px;
+      z-index: 1;
+      font-size: 12px;
+      color: #333;
+    }
+    .legend-title {
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+    .speed-bar {
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(to right, #a50026, #f46d43, #fee08b, #66bd63, #1a9850);
+      margin: 7px 0 4px;
+    }
+    .speed-labels {
+      display: flex;
+      justify-content: space-between;
+      color: #555;
+      font-size: 11px;
+    }
+    .legend-note {
+      color: #666;
+      font-size: 11px;
+      line-height: 1.35;
+      margin-top: 5px;
+    }
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 7px;
+    }
+    .legend-box {
+      width: 18px;
+      height: 12px;
+      border-radius: 3px;
+      flex: 0 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <aside class="map-legend">
+    <div class="legend-title">道路旅行速度 (km/hr)</div>
+    <div class="speed-bar"></div>
+    <div class="speed-labels">
+      <span>0</span><span>20</span><span>40</span><span>60</span><span>80+</span>
+    </div>
+    <div class="legend-note">紅色較慢，綠色較快；封閉道路以黑色表示。</div>
+    <div class="legend-row"><span class="legend-box" style="background: rgba(43, 140, 190, 0.55); border: 1px solid #08589e;"></span><span>淹水影響 grid</span></div>
+    <div class="legend-row"><span class="legend-box" style="background: rgba(123, 50, 148, 0.55); border: 1px solid #542788;"></span><span>土石流門檻超標 grid</span></div>
+  </aside>
+
+  <aside class="panel">
+    <h1>災前 / 災後最佳路徑比較</h1>
+    <div class="hint">
+      可直接輸入經緯度，或按「設定起點 / 終點」後在地圖上點選。
+    </div>
+
+    <div class="grid">
+      <label class="full-row">情境模式
+        <select id="scenarioMode">
+          <option value="historical">歷史降雨事件</option>
+          <option value="custom">自選均雨量</option>
+        </select>
+      </label>
+    </div>
+    <div id="historicalScenarioControls" class="grid">
+      <label>雨量日期<select id="scenarioDate"></select></label>
+      <label>雨量時間<select id="scenarioTime"></select></label>
+    </div>
+    <div id="customScenarioControls" class="grid hidden">
+      <label>Past 1hr mm<input id="customPast1hr" type="number" min="0" step="0.1" value="20"></label>
+      <label>Past 24hr mm<input id="customPast24hr" type="number" min="0" step="0.1" value="100"></label>
+      <label>Past 2day mm<input id="customPast2days" type="number" min="0" step="0.1" value="150"></label>
+      <label>Past 3day mm<input id="customPast3days" type="number" min="0" step="0.1" value="200"></label>
+    </div>
+    <div class="buttons">
+      <button id="refreshScenarios">重新整理情境</button>
+      <button id="loadScenario" class="primary">建立 / 載入情境</button>
+    </div>
+    <div id="scenarioNote" class="scenario-note">正在讀取可用雨量時間...</div>
+
+    <div class="section-title">全市路網統計</div>
+    <div class="summary">
+      <div class="stat"><div class="label">平均旅行時間增加率</div><div id="avgIncrease" class="value">-</div></div>
+      <div class="stat"><div class="label">旅行時間增加 >0%</div><div id="affectedGt0Ratio" class="value">-</div></div>
+      <div class="stat"><div class="label">旅行時間增加 >5%</div><div id="affectedGt5Ratio" class="value">-</div></div>
+      <div class="stat"><div class="label">旅行時間增加 >10%</div><div id="affectedGt10Ratio" class="value">-</div></div>
+      <div class="stat"><div class="label">封閉道路數量</div><div id="closedCount" class="value">-</div></div>
+      <div class="stat"><div class="label">受淹水影響道路比例</div><div id="floodAffectedRatio" class="value">-</div></div>
+    </div>
+
+    <div class="grid">
+      <label>起點 Lon<input id="originLon" type="number" step="0.000001" value="121.574264"></label>
+      <label>起點 Lat<input id="originLat" type="number" step="0.000001" value="25.166960"></label>
+      <label>終點 Lon<input id="destLon" type="number" step="0.000001" value="121.565000"></label>
+      <label>終點 Lat<input id="destLat" type="number" step="0.000001" value="25.120000"></label>
+    </div>
+
+    <div class="buttons">
+      <button id="pickOrigin">設定起點</button>
+      <button id="pickDest">設定終點</button>
+      <button id="clearRoutes">清除路線</button>
+      <button id="runRoute" class="primary">計算路線</button>
+    </div>
+
+    <div class="grid">
+      <label>可達時間 cutoff 分鐘<input id="cutoffMin" type="number" step="1" min="1" value="5"></label>
+      <label>&nbsp;<button id="runAccess" class="primary" style="height:34px;">計算可達性</button></label>
+    </div>
+
+    <div class="layers-panel">
+      <div class="layer-group-title">全市路網</div>
+      <div class="layer-grid">
+        <label class="layer-item"><input type="checkbox" id="toggleOverallPre" checked><span class="swatch pre"></span><span>災前路網</span></label>
+        <label class="layer-item"><input type="checkbox" id="toggleOverallPost" checked><span class="swatch post"></span><span>災後路網</span></label>
+        <label class="layer-item"><input type="checkbox" id="toggleClosed" checked><span class="swatch closed"></span><span>封閉路段</span></label>
+        <label class="layer-item"><input type="checkbox" id="toggleFloodGrid" checked><span class="swatch flood-grid"></span><span>淹水影響 grid</span></label>
+        <label class="layer-item"><input type="checkbox" id="toggleLandslideGrid" checked><span class="swatch landslide-grid"></span><span>土石流影響 grid</span></label>
+      </div>
+
+      <div class="layer-group-title">最佳路徑</div>
+      <div class="layer-grid">
+        <label class="layer-item"><input type="checkbox" id="togglePreRoute" checked><span class="swatch pre"></span><span>災前路徑</span></label>
+        <label class="layer-item"><input type="checkbox" id="togglePostRoute" checked><span class="swatch post"></span><span>災後路徑</span></label>
+      </div>
+
+      <div class="layer-group-title">可達範圍 / 避難所</div>
+      <div class="layer-grid">
+        <label class="layer-item"><input type="checkbox" id="togglePreIso" checked><span class="swatch iso-pre"></span><span>災前可達</span></label>
+        <label class="layer-item"><input type="checkbox" id="togglePostIso" checked><span class="swatch iso-post"></span><span>災後可達</span></label>
+        <label class="layer-item"><input type="checkbox" id="toggleShelters" checked><span class="swatch shelter"></span><span>避難所</span></label>
+      </div>
+    </div>
+
+    <div class="summary">
+      <div class="stat"><div class="label">災前總旅行時間</div><div id="preTime" class="value">-</div></div>
+      <div class="stat"><div class="label">災後總旅行時間</div><div id="postTime" class="value">-</div></div>
+      <div class="stat"><div class="label">增加時間</div><div id="changeTime" class="value">-</div></div>
+      <div class="stat"><div class="label">增加率</div><div id="changePct" class="value">-</div></div>
+      <div class="stat"><div class="label">災前路線長度</div><div id="preLen" class="value">-</div></div>
+      <div class="stat"><div class="label">災後路線長度</div><div id="postLen" class="value">-</div></div>
+      <div class="stat"><div class="label">路線是否改變</div><div id="changed" class="value">-</div></div>
+      <div class="stat"><div class="label">災後可達</div><div id="reachable" class="value">-</div></div>
+    </div>
+
+    <div class="section-title">5 分鐘可達性 / 避難所</div>
+    <div class="summary">
+      <div class="stat"><div class="label">災前可達面積</div><div id="preArea" class="value">-</div></div>
+      <div class="stat"><div class="label">災後可達面積</div><div id="postArea" class="value">-</div></div>
+      <div class="stat"><div class="label">面積下降幅度</div><div id="areaDrop" class="value">-</div></div>
+      <div class="stat"><div class="label">災後可達避難所</div><div id="postShelters" class="value">-</div></div>
+    </div>
+    <ol id="nearestShelters" class="nearest-list"></ol>
+
+    <div id="status" class="status"></div>
+  </aside>
+
+  <script src="https://unpkg.com/maplibre-gl@5.0.0/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/pmtiles@4.3.0/dist/pmtiles.js"></script>
+  <script>
+    const protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
+
+    const map = new maplibregl.Map({
+      container: "map",
+      center: [121.55331424, 25.08292052],
+      zoom: 12,
+      maxZoom: 18,
+      style: {
+        version: 8,
+        sources: {
+          osm: {
+            type: "raster",
+            tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+            tileSize: 256,
+            attribution: "© OpenStreetMap contributors"
+          },
+          roads: {
+            type: "vector",
+            url: "pmtiles://data/roads.pmtiles"
+          },
+          boundary: {
+            type: "geojson",
+            data: "data/taipei_boundary.geojson"
+          },
+          floodGrid: {
+            type: "geojson",
+            data: { type: "FeatureCollection", features: [] }
+          },
+          landslideGrid: {
+            type: "geojson",
+            data: { type: "FeatureCollection", features: [] }
+          },
+          preRoute: {
+            type: "geojson",
+            data: { type: "FeatureCollection", features: [] }
+          },
+          postRoute: {
+            type: "geojson",
+            data: { type: "FeatureCollection", features: [] }
+          },
+          routePoints: {
+            type: "geojson",
+            data: { type: "FeatureCollection", features: [] }
+          },
+          preIso: {
+            type: "geojson",
+            data: { type: "FeatureCollection", features: [] }
+          },
+          postIso: {
+            type: "geojson",
+            data: { type: "FeatureCollection", features: [] }
+          },
+          shelters: {
+            type: "geojson",
+            data: { type: "FeatureCollection", features: [] }
+          }
+        },
+        layers: [
+          {
+            id: "osm",
+            type: "raster",
+            source: "osm",
+            paint: { "raster-opacity": 0.68 }
+          },
+          {
+            id: "taipei-boundary-line",
+            type: "line",
+            source: "boundary",
+            paint: { "line-color": "#111111", "line-width": 2 }
+          },
+          {
+            id: "flood-grid-fill",
+            type: "fill",
+            source: "floodGrid",
+            paint: {
+              "fill-color": "#2b8cbe",
+              "fill-opacity": 0.24
+            }
+          },
+          {
+            id: "flood-grid-line",
+            type: "line",
+            source: "floodGrid",
+            paint: {
+              "line-color": "#08589e",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.4, 14, 1.0, 17, 1.8],
+              "line-opacity": 0.85
+            }
+          },
+          {
+            id: "landslide-grid-fill",
+            type: "fill",
+            source: "landslideGrid",
+            paint: {
+              "fill-color": "#7b3294",
+              "fill-opacity": 0.26
+            }
+          },
+          {
+            id: "landslide-grid-line",
+            type: "line",
+            source: "landslideGrid",
+            paint: {
+              "line-color": "#542788",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.5, 14, 1.1, 17, 2.0],
+              "line-opacity": 0.9
+            }
+          },
+          {
+            id: "overall-pre-roads",
+            type: "line",
+            source: "roads",
+            "source-layer": "roads",
+            paint: {
+              "line-color": [
+                "interpolate", ["linear"], ["coalesce", ["get", "pre_kph"], 0],
+                0, "#a50026",
+                20, "#f46d43",
+                40, "#fee08b",
+                60, "#66bd63",
+                80, "#1a9850"
+              ],
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.35, 14, 1.0, 17, 2.4],
+              "line-opacity": 0.42
+            }
+          },
+          {
+            id: "overall-post-roads",
+            type: "line",
+            source: "roads",
+            "source-layer": "roads",
+            filter: ["==", ["get", "closed"], 0],
+            paint: {
+              "line-color": [
+                "interpolate", ["linear"], ["coalesce", ["get", "post_kph"], 0],
+                0, "#a50026",
+                20, "#f46d43",
+                40, "#fee08b",
+                60, "#66bd63",
+                80, "#1a9850"
+              ],
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 0.45, 14, 1.2, 17, 2.8],
+              "line-opacity": 0.48
+            }
+          },
+          {
+            id: "context-closed-roads",
+            type: "line",
+            source: "roads",
+            "source-layer": "roads",
+            filter: ["==", ["get", "closed"], 1],
+            paint: {
+              "line-color": "#111111",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1.2, 14, 2.4, 17, 4.5],
+              "line-opacity": 0.9
+            }
+          },
+          {
+            id: "pre-iso-fill",
+            type: "fill",
+            source: "preIso",
+            paint: {
+              "fill-color": "#2166ac",
+              "fill-opacity": 0.18
+            }
+          },
+          {
+            id: "pre-iso-line",
+            type: "line",
+            source: "preIso",
+            paint: {
+              "line-color": "#2166ac",
+              "line-width": 2,
+              "line-dasharray": [2, 1]
+            }
+          },
+          {
+            id: "post-iso-fill",
+            type: "fill",
+            source: "postIso",
+            paint: {
+              "fill-color": "#d73027",
+              "fill-opacity": 0.18
+            }
+          },
+          {
+            id: "post-iso-line",
+            type: "line",
+            source: "postIso",
+            paint: {
+              "line-color": "#d73027",
+              "line-width": 2
+            }
+          },
+          {
+            id: "shelters-circle",
+            type: "circle",
+            source: "shelters",
+            paint: {
+              "circle-radius": ["case", ["get", "post_5min"], 6, ["get", "pre_5min"], 5, 4],
+              "circle-color": [
+                "case",
+                ["get", "post_5min"], "#1a9850",
+                ["get", "pre_5min"], "#fdae61",
+                "#8c8c8c"
+              ],
+              "circle-stroke-color": "#111111",
+              "circle-stroke-width": 1,
+              "circle-opacity": 0.9
+            }
+          },
+          {
+            id: "pre-route-line",
+            type: "line",
+            source: "preRoute",
+            paint: {
+              "line-color": "#2166ac",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 4, 15, 7],
+              "line-opacity": 0.9,
+              "line-dasharray": [1.5, 1]
+            }
+          },
+          {
+            id: "post-route-line",
+            type: "line",
+            source: "postRoute",
+            paint: {
+              "line-color": "#d73027",
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 4, 15, 7],
+              "line-opacity": 0.95
+            }
+          },
+          {
+            id: "route-points",
+            type: "circle",
+            source: "routePoints",
+            paint: {
+              "circle-radius": 7,
+              "circle-color": ["case", ["==", ["get", "kind"], "origin"], "#1a9850", "#d73027"],
+              "circle-stroke-color": "#ffffff",
+              "circle-stroke-width": 2
+            }
+          }
+        ]
+      }
+    });
+
+    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }));
+
+    let pickMode = null;
+    let lastResult = null;
+    let scenarioCatalog = { scenarios: [] };
+    let rainTimeCatalog = { dates: [] };
+    let activeScenarioId = null;
+
+    const fields = {
+      originLon: document.getElementById("originLon"),
+      originLat: document.getElementById("originLat"),
+      destLon: document.getElementById("destLon"),
+      destLat: document.getElementById("destLat"),
+      scenarioMode: document.getElementById("scenarioMode"),
+      historicalScenarioControls: document.getElementById("historicalScenarioControls"),
+      customScenarioControls: document.getElementById("customScenarioControls"),
+      scenarioDate: document.getElementById("scenarioDate"),
+      scenarioTime: document.getElementById("scenarioTime"),
+      customPast1hr: document.getElementById("customPast1hr"),
+      customPast24hr: document.getElementById("customPast24hr"),
+      customPast2days: document.getElementById("customPast2days"),
+      customPast3days: document.getElementById("customPast3days"),
+      scenarioNote: document.getElementById("scenarioNote"),
+      avgIncrease: document.getElementById("avgIncrease"),
+      affectedGt0Ratio: document.getElementById("affectedGt0Ratio"),
+      affectedGt5Ratio: document.getElementById("affectedGt5Ratio"),
+      affectedGt10Ratio: document.getElementById("affectedGt10Ratio"),
+      closedCount: document.getElementById("closedCount"),
+      floodAffectedRatio: document.getElementById("floodAffectedRatio"),
+      preTime: document.getElementById("preTime"),
+      postTime: document.getElementById("postTime"),
+      changeTime: document.getElementById("changeTime"),
+      changePct: document.getElementById("changePct"),
+      preLen: document.getElementById("preLen"),
+      postLen: document.getElementById("postLen"),
+      changed: document.getElementById("changed"),
+      reachable: document.getElementById("reachable"),
+      status: document.getElementById("status")
+    };
+    fields.cutoffMin = document.getElementById("cutoffMin");
+    fields.preArea = document.getElementById("preArea");
+    fields.postArea = document.getElementById("postArea");
+    fields.areaDrop = document.getElementById("areaDrop");
+    fields.postShelters = document.getElementById("postShelters");
+    fields.nearestShelters = document.getElementById("nearestShelters");
+
+    function fmtMin(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) return "N/A";
+      return `${Number(value).toFixed(2)} min`;
+    }
+
+    function fmtPct(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) return "N/A";
+      return `${Number(value).toFixed(1)}%`;
+    }
+
+    function fmtMeter(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) return "N/A";
+      value = Number(value);
+      return value >= 1000 ? `${(value / 1000).toFixed(2)} km` : `${value.toFixed(0)} m`;
+    }
+
+    function fmtArea(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) return "N/A";
+      return `${Number(value).toFixed(2)} km²`;
+    }
+
+    function fmtNumber(value, digits = 1) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return "N/A";
+      return Number(value).toFixed(digits);
+    }
+
+    function routeFeature(geometry, scenario) {
+      if (!geometry) return { type: "FeatureCollection", features: [] };
+      return {
+        type: "FeatureCollection",
+        features: [{ type: "Feature", properties: { scenario }, geometry }]
+      };
+    }
+
+    function isCustomMode() {
+      return fields.scenarioMode.value === "custom";
+    }
+
+    function customRainValues() {
+      const values = {
+        past1hr_mm: Number(fields.customPast1hr.value),
+        past24hr_mm: Number(fields.customPast24hr.value),
+        past2days_mm: Number(fields.customPast2days.value),
+        past3days_mm: Number(fields.customPast3days.value)
+      };
+
+      for (const [key, value] of Object.entries(values)) {
+        if (!Number.isFinite(value) || value < 0) {
+          throw new Error(`${key} must be a non-negative number`);
+        }
+      }
+
+      return values;
+    }
+
+    function updateScenarioModeUI() {
+      const custom = isCustomMode();
+      fields.historicalScenarioControls.classList.toggle("hidden", custom);
+      fields.customScenarioControls.classList.toggle("hidden", !custom);
+      refreshScenarioNote();
+    }
+
+    function selectedTimeRecord() {
+      if (isCustomMode()) return null;
+
+      const option = fields.scenarioTime.selectedOptions[0];
+      if (!option) return null;
+      return {
+        targetTime: option.value,
+        scenarioId: option.dataset.scenarioId,
+        built: option.dataset.built === "true"
+      };
+    }
+
+    function findScenario(scenarioId) {
+      return scenarioCatalog.scenarios.find((scenario) => scenario.id === scenarioId) || null;
+    }
+
+    function selectedScenarioRecord() {
+      const selected = selectedTimeRecord();
+      return selected ? findScenario(selected.scenarioId) : null;
+    }
+
+    function refreshScenarioNote() {
+      if (isCustomMode()) {
+        try {
+          const values = customRainValues();
+          fields.scenarioNote.textContent =
+            `自選均雨量：Past1hr ${values.past1hr_mm} mm、` +
+            `Past24hr ${values.past24hr_mm} mm、` +
+            `Past2day ${values.past2days_mm} mm、` +
+            `Past3day ${values.past3days_mm} mm。按「建立 / 載入情境」套用。`;
+        } catch (error) {
+          fields.scenarioNote.textContent = error.message;
+        }
+        return;
+      }
+
+      const selected = selectedTimeRecord();
+      if (!selected) {
+        fields.scenarioNote.textContent = "沒有可用的雨量時間。";
+        return;
+      }
+
+      if (selected.scenarioId === activeScenarioId) {
+        fields.scenarioNote.textContent = `目前地圖情境：${selected.targetTime}`;
+      } else if (selected.built) {
+        fields.scenarioNote.textContent = `此時間已建立，可直接載入：${selected.targetTime}`;
+      } else {
+        fields.scenarioNote.textContent =
+          `此歷史時間尚未建立：${selected.targetTime}。` +
+          "請先用腳本建立情境，再按「重新整理情境」。";
+      }
+    }
+
+    function populateDateSelect() {
+      fields.scenarioDate.innerHTML = "";
+      for (const item of rainTimeCatalog.dates || []) {
+        const option = document.createElement("option");
+        option.value = item.date_key;
+        option.textContent = item.date_label;
+        fields.scenarioDate.appendChild(option);
+      }
+    }
+
+    function populateTimeSelect(preferredTargetTime = null) {
+      const dateItem = (rainTimeCatalog.dates || []).find(
+        (item) => item.date_key === fields.scenarioDate.value
+      );
+
+      fields.scenarioTime.innerHTML = "";
+      if (!dateItem) {
+        refreshScenarioNote();
+        return;
+      }
+
+      const preferred =
+        preferredTargetTime ||
+        (dateItem.times.find((item) => item.label === "09:00") || dateItem.times[0] || {}).target_time;
+
+      for (const item of dateItem.times) {
+        const option = document.createElement("option");
+        option.value = item.target_time;
+        option.dataset.scenarioId = item.scenario_id;
+        option.dataset.built = item.built ? "true" : "false";
+        option.textContent = `${item.label}${item.built ? " 已建立" : " 未建立"}`;
+        if (item.target_time === preferred) option.selected = true;
+        fields.scenarioTime.appendChild(option);
+      }
+
+      refreshScenarioNote();
+    }
+
+    async function refreshScenarioData(preferredTargetTime = null) {
+      const [timesResponse, scenariosResponse] = await Promise.all([
+        fetch("/api/rain-times"),
+        fetch("/api/scenarios")
+      ]);
+
+      if (!timesResponse.ok) throw new Error(await timesResponse.text());
+      if (!scenariosResponse.ok) throw new Error(await scenariosResponse.text());
+
+      rainTimeCatalog = await timesResponse.json();
+      scenarioCatalog = await scenariosResponse.json();
+
+      const previousDate = fields.scenarioDate.value;
+      populateDateSelect();
+
+      if (previousDate && [...fields.scenarioDate.options].some((option) => option.value === previousDate)) {
+        fields.scenarioDate.value = previousDate;
+      }
+
+      populateTimeSelect(preferredTargetTime);
+    }
+
+    function clearScenarioDependentLayers() {
+      map.getSource("preRoute").setData({ type: "FeatureCollection", features: [] });
+      map.getSource("postRoute").setData({ type: "FeatureCollection", features: [] });
+      map.getSource("preIso").setData({ type: "FeatureCollection", features: [] });
+      map.getSource("postIso").setData({ type: "FeatureCollection", features: [] });
+      map.getSource("shelters").setData({ type: "FeatureCollection", features: [] });
+    }
+
+    function emptyFeatureCollection() {
+      return { type: "FeatureCollection", features: [] };
+    }
+
+    function scenarioAssetUrl(scenario, key, fallbackFileName) {
+      if (scenario[key]) return scenario[key];
+      const base = scenario.pmtiles_url.replace(/roads\.pmtiles$/, "");
+      return `${base}${fallbackFileName}`;
+    }
+
+    async function loadGeoJsonSource(sourceId, url) {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+        const data = await response.json();
+        map.getSource(sourceId).setData(data);
+      } catch (error) {
+        console.warn(`Failed to load ${sourceId}`, error);
+        map.getSource(sourceId).setData(emptyFeatureCollection());
+      }
+    }
+
+    async function loadHazardGridLayers(scenario) {
+      await Promise.all([
+        loadGeoJsonSource(
+          "floodGrid",
+          scenarioAssetUrl(scenario, "flood_grid_url", "flood_affected_grids.geojson")
+        ),
+        loadGeoJsonSource(
+          "landslideGrid",
+          scenarioAssetUrl(scenario, "landslide_grid_url", "landslide_affected_grids.geojson")
+        )
+      ]);
+    }
+
+    function switchRoadSource(pmtilesUrl) {
+      const url = `pmtiles://${pmtilesUrl}`;
+      const source = map.getSource("roads");
+
+      if (source && typeof source.setUrl === "function") {
+        source.setUrl(url);
+        return;
+      }
+
+      const roadLayers = map.getStyle().layers.filter((layer) => layer.source === "roads");
+      for (const layer of roadLayers.slice().reverse()) {
+        if (map.getLayer(layer.id)) map.removeLayer(layer.id);
+      }
+      if (map.getSource("roads")) map.removeSource("roads");
+
+      map.addSource("roads", {
+        type: "vector",
+        url
+      });
+
+      for (const layer of roadLayers) {
+        map.addLayer(layer, "pre-iso-fill");
+      }
+
+      setLayerVisible("overall-pre-roads", document.getElementById("toggleOverallPre").checked);
+      setLayerVisible("overall-post-roads", document.getElementById("toggleOverallPost").checked);
+      setLayerVisible("context-closed-roads", document.getElementById("toggleClosed").checked);
+    }
+
+    async function switchScenario(scenario) {
+      if (!scenario) return false;
+
+      activeScenarioId = scenario.id;
+      switchRoadSource(scenario.pmtiles_url);
+      clearScenarioDependentLayers();
+      await loadHazardGridLayers(scenario);
+      await loadOverallStats(scenario.stats_url);
+      refreshScenarioNote();
+      fields.status.textContent = `已載入情境：${scenario.label || scenario.id}`;
+      return true;
+    }
+
+    async function ensureSelectedScenario() {
+      if (isCustomMode()) {
+        const values = customRainValues();
+        fields.status.textContent = "正在建立 / 載入自選均雨量情境...";
+        fields.scenarioNote.textContent =
+          `正在套用自選均雨量：Past1hr ${values.past1hr_mm} mm、` +
+          `Past24hr ${values.past24hr_mm} mm、` +
+          `Past2day ${values.past2days_mm} mm、` +
+          `Past3day ${values.past3days_mm} mm`;
+
+        const params = new URLSearchParams(values);
+        const response = await fetch(`/api/ensure-custom-scenario?${params.toString()}`);
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(text || "Custom scenario build failed");
+        }
+
+        const result = await response.json();
+        scenarioCatalog = result.scenarios;
+        rainTimeCatalog = result.rain_times;
+        await switchScenario(result.scenario);
+        return result.scenario;
+      }
+
+      const selected = selectedTimeRecord();
+      if (!selected) throw new Error("沒有選取雨量時間");
+
+      const existing = findScenario(selected.scenarioId);
+      if (existing) {
+        await switchScenario(existing);
+        return existing;
+      }
+
+      fields.status.textContent =
+        "此歷史情境尚未建立。請先用腳本建立，完成後按「重新整理情境」。";
+      fields.scenarioNote.textContent =
+        `歷史情境尚未建立：${selected.targetTime}`;
+      throw new Error("Historical scenario is not built yet.");
+    }
+
+    function updatePointSource() {
+      const origin = [Number(fields.originLon.value), Number(fields.originLat.value)];
+      const dest = [Number(fields.destLon.value), Number(fields.destLat.value)];
+      map.getSource("routePoints").setData({
+        type: "FeatureCollection",
+        features: [
+          { type: "Feature", properties: { kind: "origin" }, geometry: { type: "Point", coordinates: origin } },
+          { type: "Feature", properties: { kind: "destination" }, geometry: { type: "Point", coordinates: dest } }
+        ]
+      });
+    }
+
+    function setPickMode(mode) {
+      pickMode = mode;
+      document.getElementById("pickOrigin").classList.toggle("active", mode === "origin");
+      document.getElementById("pickDest").classList.toggle("active", mode === "dest");
+      fields.status.textContent = mode ? `請在地圖上點選${mode === "origin" ? "起點" : "終點"}` : "";
+    }
+
+    document.getElementById("pickOrigin").addEventListener("click", () => setPickMode("origin"));
+    document.getElementById("pickDest").addEventListener("click", () => setPickMode("dest"));
+
+    map.on("click", (event) => {
+      if (!pickMode) return;
+      const lon = event.lngLat.lng.toFixed(6);
+      const lat = event.lngLat.lat.toFixed(6);
+      if (pickMode === "origin") {
+        fields.originLon.value = lon;
+        fields.originLat.value = lat;
+      } else {
+        fields.destLon.value = lon;
+        fields.destLat.value = lat;
+      }
+      updatePointSource();
+      setPickMode(null);
+    });
+
+    document.getElementById("clearRoutes").addEventListener("click", () => {
+      map.getSource("preRoute").setData({ type: "FeatureCollection", features: [] });
+      map.getSource("postRoute").setData({ type: "FeatureCollection", features: [] });
+      map.getSource("preIso").setData({ type: "FeatureCollection", features: [] });
+      map.getSource("postIso").setData({ type: "FeatureCollection", features: [] });
+      map.getSource("shelters").setData({ type: "FeatureCollection", features: [] });
+      fields.status.textContent = "已清除路線";
+    });
+
+    function setLayerVisible(layerId, visible) {
+      map.setLayoutProperty(layerId, "visibility", visible ? "visible" : "none");
+    }
+
+    function setLayersVisible(layerIds, visible) {
+      for (const layerId of layerIds) {
+        setLayerVisible(layerId, visible);
+      }
+    }
+
+    document.getElementById("toggleOverallPre").addEventListener("change", (event) => {
+      setLayerVisible("overall-pre-roads", event.target.checked);
+    });
+
+    document.getElementById("toggleOverallPost").addEventListener("change", (event) => {
+      setLayerVisible("overall-post-roads", event.target.checked);
+    });
+
+    document.getElementById("toggleClosed").addEventListener("change", (event) => {
+      setLayerVisible("context-closed-roads", event.target.checked);
+    });
+
+    document.getElementById("toggleFloodGrid").addEventListener("change", (event) => {
+      setLayersVisible(["flood-grid-fill", "flood-grid-line"], event.target.checked);
+    });
+
+    document.getElementById("toggleLandslideGrid").addEventListener("change", (event) => {
+      setLayersVisible(["landslide-grid-fill", "landslide-grid-line"], event.target.checked);
+    });
+
+    document.getElementById("togglePreRoute").addEventListener("change", (event) => {
+      setLayerVisible("pre-route-line", event.target.checked);
+    });
+
+    document.getElementById("togglePostRoute").addEventListener("change", (event) => {
+      setLayerVisible("post-route-line", event.target.checked);
+    });
+
+    document.getElementById("togglePreIso").addEventListener("change", (event) => {
+      setLayersVisible(["pre-iso-fill", "pre-iso-line"], event.target.checked);
+    });
+
+    document.getElementById("togglePostIso").addEventListener("change", (event) => {
+      setLayersVisible(["post-iso-fill", "post-iso-line"], event.target.checked);
+    });
+
+    document.getElementById("toggleShelters").addEventListener("change", (event) => {
+      setLayerVisible("shelters-circle", event.target.checked);
+    });
+
+    fields.scenarioMode.addEventListener("change", () => {
+      updateScenarioModeUI();
+      if (!isCustomMode()) {
+        const scenario = selectedScenarioRecord();
+        if (scenario) {
+          switchScenario(scenario).catch((error) => {
+            console.error(error);
+            fields.status.textContent = `錯誤：${error.message}`;
+          });
+        }
+      }
+    });
+
+    for (const input of [
+      fields.customPast1hr,
+      fields.customPast24hr,
+      fields.customPast2days,
+      fields.customPast3days
+    ]) {
+      input.addEventListener("input", refreshScenarioNote);
+    }
+
+    fields.scenarioDate.addEventListener("change", () => {
+      populateTimeSelect();
+      const scenario = selectedScenarioRecord();
+      if (scenario) {
+        switchScenario(scenario).catch((error) => {
+          console.error(error);
+          fields.status.textContent = `錯誤：${error.message}`;
+        });
+      }
+    });
+
+    fields.scenarioTime.addEventListener("change", () => {
+      const scenario = selectedScenarioRecord();
+      if (scenario) {
+        switchScenario(scenario).catch((error) => {
+          console.error(error);
+          fields.status.textContent = `錯誤：${error.message}`;
+        });
+      } else {
+        refreshScenarioNote();
+      }
+    });
+
+    document.getElementById("refreshScenarios").addEventListener("click", () => {
+      const selected = selectedTimeRecord();
+      refreshScenarioData(selected ? selected.targetTime : null)
+        .then(() => {
+          fields.status.textContent = "情境清單已更新";
+          const scenario = selectedScenarioRecord();
+          if (scenario) return switchScenario(scenario);
+          refreshScenarioNote();
+        })
+        .catch((error) => {
+          console.error(error);
+          fields.status.textContent = `錯誤：${error.message}`;
+        });
+    });
+
+    document.getElementById("loadScenario").addEventListener("click", () => {
+      ensureSelectedScenario().catch((error) => {
+        console.error(error);
+        fields.status.textContent = `錯誤：${error.message}`;
+      });
+    });
+
+    async function loadOverallStats(statsUrl = "data/stats.json") {
+      try {
+        const response = await fetch(statsUrl);
+        const stats = await response.json();
+        fields.avgIncrease.textContent = fmtPct(stats.average_travel_time_increase_rate_pct);
+        fields.affectedGt0Ratio.textContent = fmtPct(
+          stats.affected_gt0_road_ratio_pct_by_length ?? stats.affected_road_ratio_pct_by_length
+        );
+        fields.affectedGt5Ratio.textContent = fmtPct(stats.affected_gt5_road_ratio_pct_by_length);
+        fields.affectedGt10Ratio.textContent = fmtPct(stats.affected_gt10_road_ratio_pct_by_length);
+        fields.closedCount.textContent = (
+          stats.closed_segments === null || stats.closed_segments === undefined
+        ) ? "N/A" : Number(stats.closed_segments).toLocaleString();
+        fields.floodAffectedRatio.textContent = fmtPct(stats.flood_affected_road_ratio_pct_by_length);
+      } catch (error) {
+        console.warn("Failed to load overall stats", error);
+        fields.avgIncrease.textContent = "N/A";
+        fields.affectedGt0Ratio.textContent = "N/A";
+        fields.affectedGt5Ratio.textContent = "N/A";
+        fields.affectedGt10Ratio.textContent = "N/A";
+        fields.closedCount.textContent = "N/A";
+        fields.floodAffectedRatio.textContent = "N/A";
+      }
+    }
+
+    async function calculateRoute() {
+      await ensureSelectedScenario();
+      updatePointSource();
+      fields.status.textContent = "計算中...";
+
+      const params = new URLSearchParams({
+        origin_lon: fields.originLon.value,
+        origin_lat: fields.originLat.value,
+        dest_lon: fields.destLon.value,
+        dest_lat: fields.destLat.value,
+        scenario_id: activeScenarioId
+      });
+
+      const response = await fetch(`/api/route?${params.toString()}`);
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text || "Route API failed");
+      }
+
+      const result = await response.json();
+      lastResult = result;
+
+      map.getSource("preRoute").setData(routeFeature(result.routes.pre, "pre"));
+      map.getSource("postRoute").setData(routeFeature(result.routes.post, "post"));
+
+      const s = result.summary;
+      fields.preTime.textContent = fmtMin(s.pre_travel_time_min);
+      fields.postTime.textContent = fmtMin(s.post_travel_time_min);
+      fields.changeTime.textContent = fmtMin(s.travel_time_change_min);
+      fields.changePct.textContent = fmtPct(s.travel_time_change_pct);
+      fields.preLen.textContent = fmtMeter(s.pre_route_length_m);
+      fields.postLen.textContent = fmtMeter(s.post_route_length_m);
+      fields.changed.textContent = s.route_changed === null ? "N/A" : (s.route_changed ? "Yes" : "No");
+      fields.reachable.textContent = s.post_reachable ? "Yes" : "No";
+
+      const geoms = [result.routes.pre, result.routes.post].filter(Boolean);
+      if (geoms.length) {
+        const coords = [];
+        for (const geom of geoms) {
+          const lines = geom.type === "MultiLineString" ? geom.coordinates : [geom.coordinates];
+          for (const line of lines) {
+            for (const coord of line) coords.push(coord);
+          }
+        }
+        const xs = coords.map(c => c[0]);
+        const ys = coords.map(c => c[1]);
+        map.fitBounds(
+          [[Math.min(...xs), Math.min(...ys)], [Math.max(...xs), Math.max(...ys)]],
+          { padding: 80, maxZoom: 15 }
+        );
+      }
+
+      fields.status.textContent = "完成";
+    }
+
+    const roadHoverPopup = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false
+    });
+    let roadHoverInstalled = false;
+
+    function roadPopupHtml(properties) {
+      const isTunnel = Number(properties.tunnel ?? 0) === 1;
+      const isTunnelClosed = Number(properties.tunnel_closed ?? 0) === 1;
+      const postText = Number(properties.closed ?? 0) === 1
+        ? "封閉"
+        : `${Number(properties.post_m ?? 0).toFixed(3)} 分鐘`;
+
+      return `
+        <div class="popup">
+          <strong>${properties.id}</strong><br>
+          道路型別：${properties.rt || "N/A"}${isTunnel ? "（tunnel）" : ""}<br>
+          災前旅行時間：${Number(properties.pre_m ?? 0).toFixed(3)} 分鐘<br>
+          災後旅行時間：${postText}<br>
+          增加率：${properties.inc_pct == null ? "N/A" : Number(properties.inc_pct).toFixed(1) + "%"}<br>
+          災前速度：${Number(properties.pre_kph ?? 0).toFixed(1)} km/hr<br>
+          災後速度：${Number(properties.post_kph ?? 0).toFixed(1)} km/hr<br>
+          淹水深度：${Number(properties.flood_mm ?? 0).toFixed(0)} mm<br>
+          Tunnel 降雨封閉：${isTunnelClosed ? "Yes" : "No"}
+        </div>
+      `;
+    }
+
+    function installRoadHoverPopup() {
+      if (roadHoverInstalled) return;
+      roadHoverInstalled = true;
+
+      for (const layerId of ["context-closed-roads", "overall-post-roads", "overall-pre-roads"]) {
+        map.on("mousemove", layerId, (event) => {
+          if (!event.features.length) return;
+          map.getCanvas().style.cursor = "pointer";
+          roadHoverPopup
+            .setLngLat(event.lngLat)
+            .setHTML(roadPopupHtml(event.features[0].properties))
+            .addTo(map);
+        });
+
+        map.on("mouseleave", layerId, () => {
+          map.getCanvas().style.cursor = "";
+          roadHoverPopup.remove();
+        });
+      }
+    }
+
+    document.getElementById("runRoute").addEventListener("click", () => {
+      calculateRoute().catch((error) => {
+        console.error(error);
+        fields.status.textContent = `錯誤：${error.message}`;
+      });
+    });
+
+    function featureCollectionFromGeometry(geometry) {
+      if (!geometry) return { type: "FeatureCollection", features: [] };
+      return {
+        type: "FeatureCollection",
+        features: [{ type: "Feature", properties: {}, geometry }]
+      };
+    }
+
+    async function calculateAccessibility() {
+      await ensureSelectedScenario();
+      updatePointSource();
+      fields.status.textContent = "計算可達性中...";
+
+      const params = new URLSearchParams({
+        origin_lon: fields.originLon.value,
+        origin_lat: fields.originLat.value,
+        cutoff_min: fields.cutoffMin.value,
+        scenario_id: activeScenarioId
+      });
+
+      const response = await fetch(`/api/accessibility?${params.toString()}`);
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text || "Accessibility API failed");
+      }
+
+      const result = await response.json();
+      map.getSource("preIso").setData(featureCollectionFromGeometry(result.isochrones.pre));
+      map.getSource("postIso").setData(featureCollectionFromGeometry(result.isochrones.post));
+      map.getSource("shelters").setData(result.shelters);
+
+      const s = result.summary;
+      fields.preArea.textContent = fmtArea(s.pre_area_km2);
+      fields.postArea.textContent = fmtArea(s.post_area_km2);
+      fields.areaDrop.textContent = fmtPct(s.area_decline_pct);
+      fields.postShelters.textContent = String(s.post_shelter_count);
+
+      fields.nearestShelters.innerHTML = "";
+      for (const shelter of s.nearest_5_post_shelters) {
+        const li = document.createElement("li");
+        li.textContent = `${shelter.name}：${fmtMin(shelter.post_time_min)}`;
+        fields.nearestShelters.appendChild(li);
+      }
+
+      fields.status.textContent = "可達性完成";
+    }
+
+    document.getElementById("runAccess").addEventListener("click", () => {
+      calculateAccessibility().catch((error) => {
+        console.error(error);
+        fields.status.textContent = `錯誤：${error.message}`;
+      });
+    });
+
+    map.on("click", "shelters-circle", (event) => {
+      const p = event.features[0].properties;
+      new maplibregl.Popup()
+        .setLngLat(event.lngLat)
+        .setHTML(`
+          <div class="popup">
+            <strong>${p.name}</strong><br>
+            行政區：${p.town || "N/A"}<br>
+            災前時間：${fmtMin(p.pre_time_min)}<br>
+            災後時間：${fmtMin(p.post_time_min)}<br>
+            災後 5 分鐘可達：${p.post_5min ? "Yes" : "No"}
+          </div>
+        `)
+        .addTo(map);
+    });
+
+    map.on("click", "flood-grid-fill", (event) => {
+      if (pickMode) return;
+      const p = event.features[0].properties;
+      new maplibregl.Popup()
+        .setLngLat(event.lngLat)
+        .setHTML(`
+          <div class="popup">
+            <strong>淹水影響 grid ${p.grid_id ?? ""}</strong><br>
+            Past1hr: ${fmtNumber(p.rain_past1hr_mm)} mm/hr<br>
+            Flood scenario: ${fmtNumber(p.flood_scenario_mmhr)} mm/hr<br>
+            Standing water depth: ${fmtNumber(p.standing_water_depth_mm)} mm
+          </div>
+        `)
+        .addTo(map);
+    });
+
+    map.on("click", "landslide-grid-fill", (event) => {
+      if (pickMode) return;
+      const p = event.features[0].properties;
+      new maplibregl.Popup()
+        .setLngLat(event.lngLat)
+        .setHTML(`
+          <div class="popup">
+            <strong>土石流影響 grid ${p.grid_id ?? ""}</strong><br>
+            Effective rain: ${fmtNumber(p.landslide_effective_rain_mm)} mm<br>
+            Past24hr: ${fmtNumber(p.rain_past24hr_mm)} mm<br>
+            Past2days: ${fmtNumber(p.rain_past2days_mm)} mm<br>
+            Past3days: ${fmtNumber(p.rain_past3days_mm)} mm
+          </div>
+        `)
+        .addTo(map);
+    });
+
+    map.on("load", () => {
+      installRoadHoverPopup();
+      updatePointSource();
+      updateScenarioModeUI();
+      refreshScenarioData()
+        .then(() => {
+          const scenario = selectedScenarioRecord();
+          if (scenario) {
+            return switchScenario(scenario);
+          }
+          refreshScenarioNote();
+          return loadOverallStats();
+        })
+        .catch((error) => {
+          console.error(error);
+          fields.status.textContent = `錯誤：${error.message}`;
+          loadOverallStats();
+        });
+    });
+  </script>
+</body>
+</html>
